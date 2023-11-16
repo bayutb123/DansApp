@@ -49,4 +49,11 @@
     <string name="hint_password">Password</string>
     <string name="btn_login">Login</string>
     <string name="tv_welcome_login">Silahkan Login</string>
+    <string name="hint_search">Search</string>
+    <string name="cd_filter">filter</string>
+    <string name="tv_filter">Filter</string>
+    <string name="tv_location">Location</string>
+    <string name="hint_location">Location</string>
+    <string name="btn_apply_filter">Apply</string>
+    <string name="tv_full_time">Full Time</string>
 </resources>
