@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiConfig {
     public static final String BASE_URL = "https://dev6.dansmultipro.com/api/";
+
     public static ApiService getApiService() {
         Gson gson = new GsonBuilder().setLenient().create();
         return new Retrofit.Builder()

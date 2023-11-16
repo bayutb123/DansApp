@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -12,7 +13,7 @@
         android:layout_marginEnd="16dp"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
-        android:src="@drawable/ic_launcher_background" />
+        tools:src="@drawable/ic_launcher_background" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"
-            android:text="Job Title"
+            tools:text="Job Title"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -33,14 +34,14 @@
             android:id="@+id/jobCompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Company Name"
+            tools:text="Company Name"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/jobLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Location"
+            tools:text="Location"
             android:textSize="12sp" />
 
     </LinearLayout>

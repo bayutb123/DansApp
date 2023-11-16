@@ -18,6 +18,7 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.loginButton.setOnClickListener(view -> login(
-            Objects.requireNonNull(binding.username.getText()).toString(),
-            Objects.requireNonNull(binding.password.getText()).toString()
+                Objects.requireNonNull(binding.username.getText()).toString(),
+                Objects.requireNonNull(binding.password.getText()).toString()
         ));
     }
 
