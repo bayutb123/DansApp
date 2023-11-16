@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.bayutb123.dansapp.R;
+import com.bayutb123.dansapp.ui.adapter.RecyclerAdapter;
 import com.bayutb123.dansapp.ui.login.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bayutb123.dansapp.databinding.ActivityMainBinding;
 
@@ -36,6 +40,19 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        MainViewModel mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
+
+        mainViewModel.fetchJobs();
+
+        binding.jobList.setHasFixedSize(true);
+        binding.jobList.setLayoutManager(new LinearLayoutManager(this));
+
+        mainViewModel.jobsLiveData.observe(this, jobs -> {
+            Log.d("MainActivity", "All JObs: " + jobs.size());
+            RecyclerAdapter adapter = new RecyclerAdapter(jobs);
+            binding.jobList.setAdapter(adapter);
+        });
 
         binding.applyFilter.setOnClickListener(view -> {
             filter();

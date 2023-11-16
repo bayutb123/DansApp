@@ -24,8 +24,9 @@
             android:id="@+id/jobTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="2"
             android:text="Job Title"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
@@ -33,14 +34,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Company Name"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/jobLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Location"
-            android:textSize="16sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
