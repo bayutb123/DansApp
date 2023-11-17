@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +17,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bayutb123.dansapp.R;
+import com.bayutb123.dansapp.data.local.SharedPreference;
 import com.bayutb123.dansapp.databinding.ActivityMainBinding;
 import com.bayutb123.dansapp.ui.adapter.RecyclerAdapter;
 import com.bayutb123.dansapp.ui.detail.DetailActivity;
@@ -25,7 +29,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private MainViewModel mainViewModel;
-    private AtomicBoolean isNoMoreData = new AtomicBoolean(false);
+    private SharedPreference sharedPreference;
+    private final AtomicBoolean isNoMoreData = new AtomicBoolean(false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        setSupportActionBar(binding.toolbar);
+        sharedPreference = new SharedPreference(this);
         checkLogin();
 
         mainViewModel = new ViewModelProvider(this).get(MainViewModel.class);
@@ -42,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
         binding.jobList.setLayoutManager(new LinearLayoutManager(this));
         binding.jobList.setItemAnimator(new DefaultItemAnimator());
 
-        setupPagination();
         mainViewModel.isNoMoreData.observe(this, bool -> {
             isNoMoreData.set(bool);
             if (isNoMoreData.get()) {
                 Toast.makeText(this, "No more data", Toast.LENGTH_SHORT).show();
             }
         });
+        setupPagination();
 
         mainViewModel.jobsLiveData.observe(this, jobs -> {
             RecyclerAdapter adapter = new RecyclerAdapter(jobs, item -> {
@@ -84,10 +90,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupPagination() {
-        Log.d("MainActivity", "isNoMoreData: " + isNoMoreData);
         binding.jobList.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 LinearLayoutManager layoutManager = (LinearLayoutManager)
                         recyclerView.getLayoutManager();
                 if (layoutManager != null) {
@@ -104,8 +109,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkLogin() {
-        boolean login = getIntent().getBooleanExtra("login", false);
-        if (!login) {
+        if (sharedPreference.getUsername() == null) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -123,12 +127,25 @@ public class MainActivity extends AppCompatActivity {
     public void setLoading(boolean loading) {
         if (loading) {
             binding.progressBar.setVisibility(View.VISIBLE);
-            binding.jobList.setVisibility(View.GONE);
-            Log.d("MainActivity", "Loading...");
         } else {
             binding.progressBar.setVisibility(View.GONE);
-            binding.jobList.setVisibility(View.VISIBLE);
-            Log.d("MainActivity", "Done");
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(com.bayutb123.dansapp.R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_logout) {
+            sharedPreference.logout();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

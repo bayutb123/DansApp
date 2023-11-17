@@ -21,6 +21,7 @@ public class DetailViewModel extends ViewModel {
     public MutableLiveData<Jobs> jobsDetail = _jobsDetail;
 
     public void setJobsDetail(String id) {
+        Log.d(TAG, "setJobsDetail: " + id);
         try {
             apiService.getJobDetail(id).enqueue(new Callback<Jobs>() {
                 @Override
@@ -29,6 +30,7 @@ public class DetailViewModel extends ViewModel {
                     if (jobs != null) {
                         _jobsDetail.postValue(jobs);
                     }
+                    Log.d(TAG, "onResponse: " + jobs);
                 }
 
                 @Override

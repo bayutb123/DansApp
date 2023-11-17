@@ -7,5 +7,6 @@
         android:orderInCategory="100"
         android:title="@string/action_logout"
         android:icon="@drawable/baseline_logout_24"
+        android:iconTint="?attr/colorOnSurface"
         app:showAsAction="always" />
 </menu>

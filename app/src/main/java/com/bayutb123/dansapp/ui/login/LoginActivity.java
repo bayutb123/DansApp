@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.bayutb123.dansapp.R;
+import com.bayutb123.dansapp.data.local.SharedPreference;
 import com.bayutb123.dansapp.databinding.ActivityLoginBinding;
 import com.bayutb123.dansapp.ui.home.MainActivity;
 
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
+    private SharedPreference sharedPreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +35,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login(String username, String password) {
+        sharedPreference = new SharedPreference(this);
         if (username.equals("admin") && password.equals("admin")) {
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("login", true);
+            sharedPreference.saveUser(username, password);
             startActivity(intent);
             finish();
         } else {
