@@ -25,4 +25,9 @@ public interface ApiService {
             @Query("full_time") boolean isFullTime
     );
 
+    @GET("recruitment/positions/{id}")
+    Call<Jobs> getJobDetail(
+            @Query("id") String id
+    );
+
 }

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bayutb123.dansapp.databinding.ActivityMainBinding;
 import com.bayutb123.dansapp.ui.adapter.RecyclerAdapter;
+import com.bayutb123.dansapp.ui.detail.DetailActivity;
 import com.bayutb123.dansapp.ui.login.LoginActivity;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -50,7 +51,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mainViewModel.jobsLiveData.observe(this, jobs -> {
-            RecyclerAdapter adapter = new RecyclerAdapter(jobs);
+            RecyclerAdapter adapter = new RecyclerAdapter(jobs, item -> {
+                Intent intent = new Intent(this, DetailActivity.class);
+                intent.putExtra("id", item.getId());
+                startActivity(intent);
+            });
             binding.jobList.setAdapter(adapter);
         });
 

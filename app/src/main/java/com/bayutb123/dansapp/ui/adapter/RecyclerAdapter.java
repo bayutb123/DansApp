@@ -1,5 +1,6 @@
 package com.bayutb123.dansapp.ui.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bayutb123.dansapp.R;
 import com.bayutb123.dansapp.model.Jobs;
+import com.bayutb123.dansapp.ui.detail.DetailActivity;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -18,9 +21,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     private final String TAG = "RecyclerAdapter";
     private final List<Jobs> jobsList;
+    private final OnItemClickListener listener;
+    public interface OnItemClickListener {
+        void onItemClick(Jobs jobs);
+    }
 
-    public RecyclerAdapter(List<Jobs> jobsList) {
+    public RecyclerAdapter(
+            List<Jobs> jobsList,
+            OnItemClickListener listener
+    ) {
         this.jobsList = jobsList;
+        this.listener = listener;
     }
     @NonNull
     @Override
@@ -39,7 +50,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             holder.getJobLocation().setText(jobs.getLocation());
             Glide.with(holder.itemView.getContext())
                     .load(jobs.getCompanyLogo())
+                    .placeholder(R.drawable.logo_placeholder)
                     .into(holder.getJobImage());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(jobs);
+                }
+            });
         }
     }
 
