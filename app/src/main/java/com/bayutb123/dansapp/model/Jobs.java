@@ -4,27 +4,27 @@ import com.google.gson.annotations.SerializedName;
 
 public class Jobs {
     @SerializedName("company_logo")
-    private String companyLogo;
+    private final String companyLogo;
     @SerializedName("how_to_apply")
-    private String howToApply;
+    private final String howToApply;
     @SerializedName("created_at")
-    private String createdAt;
+    private final String createdAt;
     @SerializedName("description")
-    private String description;
+    private final String description;
     @SerializedName("company")
-    private String company;
+    private final String company;
     @SerializedName("company_url")
-    private String companyUrl;
+    private final String companyUrl;
     @SerializedName("location")
-    private String location;
+    private final String location;
     @SerializedName("id")
-    private String id;
+    private final String id;
     @SerializedName("type")
-    private String type;
+    private final String type;
     @SerializedName("title")
-    private String title;
+    private final String title;
     @SerializedName("url")
-    private String url;
+    private final String url;
 
     public Jobs(String companyLogo, String howToApply, String createdAt, String description, String company, String companyUrl, String location, String id, String type, String title, String url) {
         this.companyLogo = companyLogo;

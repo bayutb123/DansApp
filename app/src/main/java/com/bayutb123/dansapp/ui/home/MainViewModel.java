@@ -17,13 +17,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainViewModel extends ViewModel {
-    private ApiService apiService = ApiConfig.getApiService();
+    private final ApiService apiService = ApiConfig.getApiService();
     private static final String TAG = "MainViewModel";
 
     // LiveData
-    private MutableLiveData<List<Jobs>> _jobsLiveData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> _isNoMoreData = new MutableLiveData<>();
-    private MutableLiveData<Boolean> _isLoadingLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<Jobs>> _jobsLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> _isNoMoreData = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> _isLoadingLiveData = new MutableLiveData<>();
     LiveData<List<Jobs>> jobsLiveData = _jobsLiveData;
     LiveData<Boolean> isLoadingLiveData = _isLoadingLiveData;
     LiveData<Boolean> isNoMoreData = _isNoMoreData;

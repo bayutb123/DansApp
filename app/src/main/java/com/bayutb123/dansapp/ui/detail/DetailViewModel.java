@@ -17,7 +17,7 @@ public class DetailViewModel extends ViewModel {
     ApiService apiService = ApiConfig.getApiService();
     private static final String TAG = "DetailViewModel";
 
-    private MutableLiveData<Jobs> _jobsDetail = new MutableLiveData<>();
+    private final MutableLiveData<Jobs> _jobsDetail = new MutableLiveData<>();
     public MutableLiveData<Jobs> jobsDetail = _jobsDetail;
 
     public void setJobsDetail(String id) {

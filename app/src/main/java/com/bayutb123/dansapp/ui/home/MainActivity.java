@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             binding.jobList.setAdapter(adapter);
         });
 
-        mainViewModel.isLoadingLiveData.observe(this, this::setLoading);
+
 
         binding.applyFilter.setOnClickListener(view -> filter());
         binding.filterButton.setOnClickListener(view -> {
@@ -100,8 +100,10 @@ public class MainActivity extends AppCompatActivity {
                     int lastVisible = layoutManager.findLastVisibleItemPosition();
                     boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
                     if (totalItemCount > 0 && endHasBeenReached && !isNoMoreData.get()) {
+                        setLoading(true);
                         Toast.makeText(MainActivity.this, "Loading...", Toast.LENGTH_SHORT).show();
                         mainViewModel.fetchNextPage("", "", false, totalItemCount / 10 + 1);
+                        setLoading(false);
                     }
                 }
             }
